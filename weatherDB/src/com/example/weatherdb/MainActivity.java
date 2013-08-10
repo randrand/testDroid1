@@ -29,6 +29,7 @@ public class MainActivity extends Activity {
         OKbutton = (Button)findViewById(R.id.OKbutton);
     	tEdit = (EditText)findViewById(R.id.editText1);
     	
+    	
         tEdit.setOnEditorActionListener(
                 new EditText.OnEditorActionListener() {
             @Override
@@ -42,6 +43,7 @@ public class MainActivity extends Activity {
                 return false;
             }
         });
+        
         
         // Button click listener and callback:
         // http://stackoverflow.com/questions/3320115/android-onclicklistener-identify-a-button

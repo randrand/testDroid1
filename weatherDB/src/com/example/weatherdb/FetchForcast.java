@@ -64,8 +64,11 @@ public class FetchForcast extends AsyncTask<String, Void, String> {
         // http://stackoverflow.com/questions/2118289/undocumented-yahoo-weather-api
         HttpClient httpClient = new DefaultHttpClient();
         HttpContext localContext = new BasicHttpContext();
-        //HttpGet httpGet = new HttpGet("http://weather.yahooapis.com/forecastrss?w=2295425&u=c&#8221;");
-        HttpGet httpGet = new HttpGet("http://xml.weather.yahoo.com/forecastrss?p="+zipcode[0]);
+        //HttpGet httpGet = new HttpGet();
+        //String addr = "http://weather.yahooapis.com/forecastrss?w=2295425&u=c&#8221;";
+        String addr = "http://xml.weather.yahoo.com/forecastrss?p="+zipcode[0];
+        
+        HttpGet httpGet = new HttpGet(addr);
         
         try {
         	// Initiate HTTP request

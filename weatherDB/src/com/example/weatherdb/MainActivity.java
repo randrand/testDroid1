@@ -1,3 +1,7 @@
+/*
+* Query Yahoo! weather web server and parse the temperature information for a given key (zipcode).
+* Author: JJ
+*/
 package com.example.weatherdb;
 
 import com.example.weatherdb.R;
@@ -12,8 +16,6 @@ import android.widget.TextView;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 
-// A beginner’s tutorial for creating a Git Repository in Eclipse using EGit for Android projects
-// http://mobile.cs.fsu.edu/creating-a-git-repository-for-android-projects/
 
 public class MainActivity extends Activity {
 	Button OKbutton = null;
@@ -29,7 +31,7 @@ public class MainActivity extends Activity {
         OKbutton = (Button)findViewById(R.id.OKbutton);
     	tEdit = (EditText)findViewById(R.id.editText1);
     	
-    	
+    	// Note: this is just for practice; unused in the app
         tEdit.setOnEditorActionListener(
                 new EditText.OnEditorActionListener() {
             @Override
@@ -45,12 +47,13 @@ public class MainActivity extends Activity {
         });
         
         
-        // Button click listener and callback:
-        // http://stackoverflow.com/questions/3320115/android-onclicklistener-identify-a-button
+        // Button click listener and callback
         OKbutton.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
         		inZipcode = tEdit.getText().toString();
         		View myView = tEdit.getRootView();
+        		
+        		// New thread for sending HTTP request
         		FetchForcast fCast = new FetchForcast(myView);
         		fCast.execute(inZipcode);
         	}

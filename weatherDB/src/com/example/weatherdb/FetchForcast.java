@@ -40,10 +40,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-// http://stackoverflow.com/questions/18123734/how-to-get-the-current-location-temperature-in-android
-// http://androidcodebits.wordpress.com/2013/07/20/integration-of-yahoo-weather-api-in-android/
-// http://www.vogella.com/articles/EGit/article.html
-
 // AsyncTask class in Andriod:
 // http://developer.android.com/reference/android/os/AsyncTask.html
 public class FetchForcast extends AsyncTask<String, Void, String> {
@@ -55,16 +51,16 @@ public class FetchForcast extends AsyncTask<String, Void, String> {
 	public FetchForcast (View mainView) {
 		mView = mainView;
 	}
+	
+	// HTTP request and response in background
 	@Override
     protected String doInBackground(String... zipcode) {
         
         String qResult = "OK";
 
         // Query yahoo weather by Zip code
-        // http://stackoverflow.com/questions/2118289/undocumented-yahoo-weather-api
         HttpClient httpClient = new DefaultHttpClient();
         HttpContext localContext = new BasicHttpContext();
-        //HttpGet httpGet = new HttpGet();
         //String addr = "http://weather.yahooapis.com/forecastrss?w=2295425&u=c&#8221;";
         String addr = "http://xml.weather.yahoo.com/forecastrss?p="+zipcode[0];
         
@@ -114,9 +110,6 @@ public class FetchForcast extends AsyncTask<String, Void, String> {
 			e.printStackTrace();
 		}
 
-        //  read an XML file via DOM XML parser
-        // http://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
-        
         // read temperature value
         Node temperatureNode = dest.getElementsByTagName("yweather:condition").item(0);
         temperature = temperatureNode.getAttributes().getNamedItem("temp").getNodeValue().toString();
@@ -144,10 +137,6 @@ public class FetchForcast extends AsyncTask<String, Void, String> {
         Pattern TAG_REGEX = Pattern.compile("(.+?)<br />");
         Matcher matcher = TAG_REGEX.matcher(desc);
         
-        //while (matcher.find()) {
-        //    MainActivity.add(matcher.group(1));
-        //}
-         */
 
 
         /*
@@ -192,15 +181,9 @@ public class FetchForcast extends AsyncTask<String, Void, String> {
     
 
     protected void onPreExecute(){
-        //dialog = new ProgressDialog(Weather.this);
-        //dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        //dialog.setMessage(“Loading…”);
-        //dialog.setCancelable(false);
-        //dialog.show();
     }
 
     /*
-     * P401 of Busy Coder book
      * This method is called, from the UI thread, after doInBackground()
      * completes. It receives, as a parameter, the value returned by
      * doInBackground() (e.g., success or failure flag). 
@@ -208,9 +191,7 @@ public class FetchForcast extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
     	System.out.println("POST EXECUTE");
-    	
-    	//if(dialog.isShowing())
-    	//	dialog.dismiss();
+
     	TextView dateText = (TextView) mView.findViewById(R.id.dateText);
     	dateText.setText("Date: "+date);
     	
@@ -218,10 +199,6 @@ public class FetchForcast extends AsyncTask<String, Void, String> {
     	TextView tempText = (TextView) mView.findViewById(R.id.tempText);
     	tempText.setText("Temperature: "+temperature);
     	
-    	/*
-    	ImageView image = (ImageView) mView.findViewById(R.id.icon);
-    	image.setImageBitmap(icon);
-    	*/
     }
 }
 
